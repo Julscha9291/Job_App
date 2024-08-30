@@ -9,12 +9,15 @@
 </head>
 <body>
 
+ <!-- Lade-Animation beim Laden von Inhalten -->
     <div id="loader">
         <div class="loader"></div>
     </div>
 
     <header>
         <div class="header-content">
+
+    <!-- Logo und Titel der Webseite -->
             <div class="title-container">
                 <img src="static/img/logo.png" alt="Logo" class="logo">
                 <h1>Next Job</h1>
@@ -22,27 +25,30 @@
                 <p class="subtitle">Find your dream Job</p>
             </div>
    
+    <!-- Suchformular für Job- und Standortangabe -->
             <form id="search-form" class="search-form">
                 <!-- Header Eingabefelder -->
                 <input type="text" id="job_title" name="job_title" placeholder="Job Title" required>
                 <input type="text" id="location" name="location" placeholder="Location" required>
-                <button type="submit">Search</button>   
-            
+                <button type="submit">Search</button>        
+
         </header>
 
 
         <div class="container">
+            <!-- Button zum Umschalten von zusätzlichen Filteroptionen -->
             <button id="toggle-filters" class="toggle-button">Mehr Filter</button>
+
             <aside class="sidebar hidden-sidebar">
-                <!-- Sidebar Eingabefelder -->
-                      <!-- Radius Schieberegler -->
+            <!-- Radius Schieberegler -->
              <div class="radius-container" >         
                       <label for="radius">  <legend> Entfernung (in km):</legend> </label>
                       <input type="range" id="radius" name="radius" min="5" max="100" value="30" step="5">
                       <span id="radius-value"> 30 km</span>
                       <br><br>
             </div>
-            <div class="type-container" >         <!-- Job Type Auswahl -->
+            <div class="type-container" >  
+            <!-- Auswahl für Jobtyp -->     
                 <fieldset>
                     <legend>Job Type:</legend>
                     <label class="radio-label">
@@ -89,10 +95,12 @@
         </aside>
   
         <main>
+            <!-- Anzeige des Ladezustands -->
             <div id="loader">
                 <div class="loader"></div>
             </div>
      
+        <!-- Zusammenfassung der Suchergebnisse -->
             <div id="summary" class="summary hidden-summary">
                 <div class="summary-item">
                     <h2>Total Results:</h2>
@@ -108,12 +116,15 @@
                 </div>
             </div>
 
-
+     <!-- Anzeige der Job-Ergebnisse -->
             <div id="results" class="results hidden"></div>
 
         </main>
     </div>
 
+
+
+<!-- Verlinkung zum JavaScript-File -->
     <script src="static/script.js"></script>
 </body>
 </html>

@@ -18,7 +18,7 @@ app = Flask(__name__)
 def initialize_driver():
     """Initialisiert den WebDriver mit den angegebenen Optionen."""
     options = Options()
-    #options.headless = True  # Browser im Hintergrund ausführen
+    options.headless = True  # Browser im Hintergrund ausführen
     service = Service(ChromeDriverManager().install())
     return webdriver.Chrome(service=service, options=options)
 

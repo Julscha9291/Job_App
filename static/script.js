@@ -1,15 +1,15 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Event-Listener für das Suchformular
     document.getElementById('search-form').addEventListener('submit', function(event) {
-        event.preventDefault();
-        document.getElementById('loader').style.display = 'block';
+        event.preventDefault(); // Verhindert das Neuladen der Seite
+        document.getElementById('loader').style.display = 'block'; // Zeigt den Loader an
 
-        const formData = new FormData(this);
-        fetch('/search', {
+        const formData = new FormData(this); // Holt die Daten aus dem Formular
+        fetch('/search', { //Sendet Daten an Server
             method: 'POST',
             body: formData
         })
-        .then(response => response.json())
+        .then(response => response.json()) //Umwandeln in JSON
         .then(data => {
             document.getElementById('loader').style.display = 'none';
 
