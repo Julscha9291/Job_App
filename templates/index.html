@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Next Job</title>
+    <link rel="stylesheet" href="static/styles.css">
+    <link rel="icon" href="/static/favicon.png" type="image/x-icon">
+</head>
+<body>
+
+    <div id="loader">
+        <div class="loader"></div>
+    </div>
+
+    <header>
+        <div class="header-content">
+            <div class="title-container">
+                <img src="static/img/logo.png" alt="Logo" class="logo">
+                <h1>Next Job</h1>
+                <div class="vertical-line"></div>
+                <p class="subtitle">Find your dream Job</p>
+            </div>
+   
+            <form id="search-form" class="search-form">
+                <!-- Header Eingabefelder -->
+                <input type="text" id="job_title" name="job_title" placeholder="Job Title" required>
+                <input type="text" id="location" name="location" placeholder="Location" required>
+                <button type="submit">Search</button>   
+            
+        </header>
+
+
+        <div class="container">
+            <button id="toggle-filters" class="toggle-button">Mehr Filter</button>
+            <aside class="sidebar hidden-sidebar">
+                <!-- Sidebar Eingabefelder -->
+                      <!-- Radius Schieberegler -->
+             <div class="radius-container" >         
+                      <label for="radius">  <legend> Entfernung (in km):</legend> </label>
+                      <input type="range" id="radius" name="radius" min="5" max="100" value="30" step="5">
+                      <span id="radius-value"> 30 km</span>
+                      <br><br>
+            </div>
+            <div class="type-container" >         <!-- Job Type Auswahl -->
+                <fieldset>
+                    <legend>Job Type:</legend>
+                    <label class="radio-label">
+                        <input type="radio" id="job_type_any" name="job_type" value="" checked>
+                        <span class="custom-radio"></span>
+                        Any
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" id="job_type_fulltime" name="job_type" value="fulltime">
+                        <span class="custom-radio"></span>
+                        Full-time
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" id="job_type_parttime" name="job_type" value="parttime">
+                        <span class="custom-radio"></span>
+                        Part-time
+                    </label>
+                </fieldset>
+                    </div>
+
+
+         <div class="type-container" >         
+                <label for="date_range"><legend>Date Range:</legend>  </label>
+                <select id="date_range" name="date_range">
+                    <option value="1">Last 24 hours</option>
+                    <option value="3">Last 3 days</option>
+                    <option value="7" selected>Last 7 days</option>
+                </select>
+            </div>
+    <div class="type-container" >   
+                <label for="sort_by"> <legend>Sort by:</legend>  </label>
+                <select id="sort_by" name="sort_by">
+                    <option value="relevance">Relevance</option>
+                    <option value="date">Date</option>
+                </select>
+            </div>
+        
+     <div class="type-container" >      
+                <label for="exclude_words"> <legend>Exclude Words:</legend>  </label>
+                <input type="text" id="exclude_words" name="exclude_words" placeholder="e.g., internship, junior">
+      </div>
+               
+            </form>
+        </aside>
+  
+        <main>
+            <div id="loader">
+                <div class="loader"></div>
+            </div>
+     
+            <div id="summary" class="summary hidden-summary">
+                <div class="summary-item">
+                    <h2>Total Results:</h2>
+                    <p id="total-results">10</p>
+                </div>
+                <div class="summary-item">
+                    <h2>Posted Today:</h2>
+                    <p id="posted-today">5</p>
+                </div>
+                <div class="summary-item">
+                    <h2>Posted in Last 7 Days:</h2>
+                    <p id="posted-7-days">20</p>
+                </div>
+            </div>
+
+
+            <div id="results" class="results hidden"></div>
+
+        </main>
+    </div>
+
+    <script src="static/script.js"></script>
+</body>
+</html>

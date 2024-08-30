@@ -1,0 +1,535 @@
+/* Grundlegendes Styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Header Styling */
+header {
+    background-color: #02011e;
+    padding: 20px;
+    color: #f3f5f4;
+    text-align: center;
+    width: 100%;
+}
+
+.header-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.logo {
+    height: 60px; /* Höhe des Logos */
+}
+
+
+.title-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+    justify-content: flex-start;
+}
+
+h1 {
+    margin-right: 10px;
+}
+
+.vertical-line {
+    height: 40px; /* Höhe der Linie */
+    width: 1px;
+    background-color: #f3f5f4; /* Farbe der Linie */
+    margin-right: 10px;
+}
+
+.subtitle {
+    font-size: 14px;
+    color: #8736f6; /* Farbe des Textes */
+}
+.search-form {
+    display: flex;
+    gap: 10px;
+}
+
+.search-form input[type="text"] {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    width: 200px;
+}
+
+.search-form button {
+    padding: 10px 20px;
+    background-color: #0094e2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.search-form button:hover {
+    background-color: #025f91;
+}
+
+/* Container Layout */
+.container {
+    display: flex;
+    padding: 20px;
+}
+
+.radius-container{
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #eeecec; /* Rahmen */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Schatteneffekt */
+}
+
+#radius {
+    margin: 10px 0;
+    width: 90%; /* Füllt die Breite des Containers aus */
+    color:green;
+}
+
+#radius-value {
+    font-size: 16px;
+    color: black;
+    margin-top: 5px; /* Abstand zwischen Schieberegler und Wert */
+    align-self: center;
+}
+
+.type-container{
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #eeecec; /* Rahmen */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Schatteneffekt */
+}
+
+
+fieldset {
+    border: transparent;
+    padding: 10px;
+    margin: 0;
+    border-radius: 5px;
+}
+
+legend {
+    font-weight: bold;
+}
+
+label{
+    font-weight: normal;
+}
+
+.radio-label {
+    display: block;
+    position: relative;
+    padding-left: 30px; /* Platz für den benutzerdefinierten Radio-Button */
+    margin: 5px 0;
+    cursor: pointer;
+    font-weight: normal; /* Sicherstellen, dass der Text nicht fett ist */
+    font-size: 16px; /* Optional: Schriftgröße nach Wunsch */
+}
+
+.radio-label input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.custom-radio {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 20px;
+    height: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    transform: translateY(-50%);
+}
+
+.radio-label input[type="radio"]:checked + .custom-radio {
+    background-color: #0094e2;
+    border-color: #0094e2;
+}
+
+.custom-radio::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    background-color: #fff;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+}
+
+.radio-label input[type="radio"]:checked + .custom-radio::after {
+    opacity: 1;
+}
+
+/* Sidebar Styling */
+
+.sidebar {
+    width: 250px;
+    padding: 20px;
+    position: relative;
+    transition: transform 0.3s ease;
+    /* standardmäßig immer sichtbar auf großen Bildschirmen */
+}
+
+.sidebar label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.sidebar input,
+.sidebar select {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Main Content Styling */
+main {
+    flex-grow: 1;
+}
+
+.results {
+    margin-top: 20px;
+}
+
+/* Loader Styling */
+#loader {
+    display: none; /* Verstecke das Lade-Icon standardmäßig */
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+}
+
+.loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+.summary{
+    display: flex;
+    flex-direction: row;
+}
+
+.results {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.summary-item {
+    flex: 1;
+    margin: 0 10px;
+    padding: 10px;
+    border: 1px solid #eeecec;
+    border-radius: 5px;
+    text-align: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Schatteneffekt */
+}
+
+.summary-item h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.summary-item p {
+    font-size: 18px;
+}
+
+
+/* Styling für die Job-Ergebnisse */
+.results {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Abstand zwischen den Job-Containern */
+    margin-top: 20px;
+}
+
+.job-item {
+    border: 1px solid #ddd; /* Rahmen für den Job-Container */
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Schatten für den Container */
+    background-color: #fff; /* Hintergrundfarbe des Containers */
+}
+
+.job-item h3 {
+    font-size: 20px;
+    margin: 0 0 10px 0; /* Abstand unten */
+    font-weight: bold;
+}
+
+.job-item .company,
+.job-item .location,
+.job-item .date-posted {
+    font-size: 16px;
+    margin: 5px 0; /* Abstand oben und unten */
+}
+
+.job-item .company {
+    color: #555; /* Farbe der Firma */
+}
+
+.job-item .location {
+    color: #777; /* Farbe des Ortes */
+}
+
+.job-item .date-posted {
+    color: #999; /* Farbe des Datums */
+}
+
+.job-item a {
+    display: inline-block;
+    margin-top: 10px;
+    color: #0094e2; /* Linkfarbe */
+    text-decoration: none;
+}
+
+.job-item a:hover {
+    text-decoration: underline; /* Unterstreicht den Link beim Hover */
+}
+
+.hidden-summary {
+    display: none; /* Versteckt das Element */
+}
+
+
+/* Button Styling */
+.toggle-button {
+    display: none;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #03011f;
+    background-color: #fff;
+
+    color: #03011f;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.toggle-button:hover {
+    background-color: transparent;
+}
+
+
+
+/* Stellen Sie sicher, dass andere Stile weiterhin beachtet werden */
+
+/* Media Queries für mobile Geräte und Tablets */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+    /* Anpassungen für Tablets (Querformat) */
+
+    aside.sidebar.hidden-sidebar {
+        display: none !important;
+    }
+
+
+.hidden-summary {
+    display: none !important; /* Versteckt das Element */
+}
+
+    .sidebar {
+        display: flex;
+        flex-direction: row;
+        width: 95%;
+        gap: 15px;
+    }
+
+    .radius-container .type-container {
+        flex: 1; /* Optional: Gleiche Verteilung des Platzes */
+        /* Oder eine spezifische Breite festlegen, z.B. */
+        /* width: 50%; */
+    }
+
+
+    .toggle-button {
+        display: block;
+    }
+    
+    .search-form {
+        flex-direction: column;
+        width: 50%;
+        align-items: center;
+    }
+
+    .search-form input[type="text"] {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .search-form button {
+        width: 30%;
+    }
+
+    .container {
+        flex-direction: column;
+        padding: 10px;
+        width: 100%;
+    }
+
+  
+
+    .toggle-button {
+        display: block;
+    }
+
+    .radius-container,
+    .type-container {
+        width: 49%; /* Beide Container nehmen jeweils fast die Hälfte der Bildschirmbreite ein */
+        box-sizing: border-box;
+        margin-bottom: 20px;
+
+    }
+
+    #summary {
+        flex-direction: row;
+        justify-content: center;
+        display: flex;
+    }
+
+    .summary-item {
+        margin-bottom: 10px;
+    }
+
+    .results {
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    .job-item {
+        padding: 10px;
+    }
+
+}
+
+
+
+
+@media screen and (max-width: 768px) {
+    /* Anpassungen für Handys (Portrait und Querformat) */
+    header {
+        padding: 10px;
+    }
+
+
+
+    .header-content{
+        margin-bottom: 20px;
+width: 100%;
+    }
+
+
+
+    aside.sidebar.hidden-sidebar {
+        display: none !important;
+    }
+
+
+.hidden-summary {
+    display: none !important; /* Versteckt das Element */
+}
+
+.sidebar{
+width: 90%;
+
+
+}
+    .toggle-button {
+        display: block;
+    }
+
+
+    .container {
+        flex-direction: column;
+        padding: 10px;
+        width: 100%;
+    }
+
+    .logo {
+        height: 50px;
+    }
+
+    h1 {
+        font-size: 24px;
+        text-align: center;
+    }
+
+    .subtitle {
+        font-size: 12px;
+        text-align: center;
+    }
+
+    .search-form input[type="text"] {
+        font-size: 14px;
+        width: 90%;
+    }
+
+    .search-form button {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+
+    .search-form {
+        flex-direction: column;
+        width: 50%;
+        align-items: center;
+    }
+
+
+    .radius-container, .type-container, .summary-item {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .summary-item h2, .summary-item p {
+        font-size: 16px;
+    }
+
+    .job-item h3 {
+        font-size: 18px;
+    }
+
+    .job-item .company, .job-item .location, .job-item .date-posted {
+        font-size: 14px;
+    }
+
+    #summary {
+        flex-direction: column;
+        justify-content: center;
+        display: flex;
+    }
+}
