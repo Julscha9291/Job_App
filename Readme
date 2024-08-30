@@ -1,8 +1,8 @@
-# Job Search Application
+#  Job Search Application
 
 This project is a web-based job search application that aggregates job listings from Indeed and StepStone. The application provides users with an interface to search for jobs based on various criteria such as job title, location, radius, job type, and posting date. Users can also exclude specific keywords from their search results.
 
-## Features
+##  Features
 
 - **Search Across Multiple Platforms:** The application searches for jobs on Indeed and StepStone.
 - **Filter and Exclude Keywords:** Users can filter results by job title, location, and job type, and can exclude jobs containing specific keywords.
