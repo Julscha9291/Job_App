@@ -18,7 +18,9 @@ app = Flask(__name__)
 def initialize_driver():
     """Initialisiert den WebDriver mit den angegebenen Optionen."""
     options = Options()
-    options.headless = True  # Browser im Hintergrund ausführen
+    options.add_argument('--headless')  # Headless-Modus aktivieren
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')  # Verhindert Probleme mit dem shared memory
     service = Service(ChromeDriverManager().install())
     return webdriver.Chrome(service=service, options=options)
 
