@@ -20,8 +20,9 @@ def initialize_driver():
     options = Options()
     options.add_argument('--headless')  # Headless-Modus aktivieren
     options.add_argument('--no-sandbox')
-    options.add_argument('--disable-dev-shm-usage')  # Verhindert Probleme mit dem shared memory
-    service = Service(ChromeDriverManager().install())
+    options.add_argument('--disable-dev-shm-usage') 
+    options.add_argument('--user-data-dir=/tmp/temporary_profile')  # Temporäres Benutzerprofil# Verhindert Probleme mit dem shared memory
+    service = Service('/usr/lib/chromium-browser/chromedriver')
     return webdriver.Chrome(service=service, options=options)
 
 def close_popup(driver):
