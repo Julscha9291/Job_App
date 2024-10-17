@@ -10,7 +10,7 @@ import time
 import re
 from datetime import datetime, timedelta
 import requests
-
+from pyvirtualdisplay import Display
 
 app = Flask(__name__)
 
@@ -22,7 +22,10 @@ def initialize_driver():
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage') 
     options.add_argument('--user-data-dir=/tmp/temporary_profile')  # Temporäres Benutzerprofil# Verhindert Probleme mit dem shared memory
-    service = Service(ChromeDriverManager().install())
+    display = Display(visible=0, size=(1600, 1200))
+    display.start()
+    # Setze den Pfad zum ChromeDriver
+    service = Service('/usr/lib/chromium-browser/chromedriver')
     return webdriver.Chrome(service=service, options=options)
 
 def close_popup(driver):
