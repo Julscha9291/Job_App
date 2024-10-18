@@ -40,15 +40,15 @@ h1 {
 }
 
 .vertical-line {
-    height: 40px; /* Höhe der Linie */
+    height: 40px;
     width: 1px;
-    background-color: #f3f5f4; /* Farbe der Linie */
+    background-color: #f3f5f4; 
     margin-right: 10px;
 }
 
 .subtitle {
     font-size: 14px;
-    color: #8736f6; /* Farbe des Textes */
+    color: #8736f6; 
 }
 .search-form {
     display: flex;
@@ -270,25 +270,24 @@ main {
 }
 
 
-/* Styling für die Job-Ergebnisse */
 .results {
     display: flex;
     flex-direction: column;
-    gap: 10px; /* Abstand zwischen den Job-Containern */
+    gap: 10px; 
     margin-top: 20px;
 }
 
 .job-item {
-    border: 1px solid #ddd; /* Rahmen für den Job-Container */
+    border: 1px solid #ddd; 
     border-radius: 5px;
     padding: 15px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Schatten für den Container */
-    background-color: #fff; /* Hintergrundfarbe des Containers */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); 
+    background-color: #fff; 
 }
 
 .job-item h3 {
     font-size: 20px;
-    margin: 0 0 10px 0; /* Abstand unten */
+    margin: 0 0 10px 0; 
     font-weight: bold;
 }
 
@@ -296,38 +295,37 @@ main {
 .job-item .location,
 .job-item .date-posted {
     font-size: 16px;
-    margin: 5px 0; /* Abstand oben und unten */
+    margin: 5px 0; 
 }
 
 .job-item .company {
-    color: #555; /* Farbe der Firma */
+    color: #555; 
 }
 
 .job-item .location {
-    color: #777; /* Farbe des Ortes */
+    color: #777; 
 }
 
 .job-item .date-posted {
-    color: #999; /* Farbe des Datums */
+    color: #999; 
 }
 
 .job-item a {
     display: inline-block;
     margin-top: 10px;
-    color: #0094e2; /* Linkfarbe */
+    color: #0094e2;
     text-decoration: none;
 }
 
 .job-item a:hover {
-    text-decoration: underline; /* Unterstreicht den Link beim Hover */
+    text-decoration: underline; 
 }
 
 .hidden-summary {
-    display: none; /* Versteckt das Element */
+    display: none; 
 }
 
 
-/* Button Styling */
 .toggle-button {
     display: none;
     margin-bottom: 20px;
@@ -347,8 +345,6 @@ main {
 
 
 
-/* Stellen Sie sicher, dass andere Stile weiterhin beachtet werden */
-
 /* Media Queries für mobile Geräte und Tablets */
 @media screen and (min-width: 768px) and (max-width: 1024px) {
     /* Anpassungen für Tablets (Querformat) */
@@ -358,9 +354,9 @@ main {
     }
 
 
-.hidden-summary {
-    display: none !important; /* Versteckt das Element */
-}
+    .hidden-summary {
+        display: none !important; /* Versteckt das Element */
+    }
 
     .sidebar {
         display: flex;
@@ -370,11 +366,8 @@ main {
     }
 
     .radius-container .type-container {
-        flex: 1; /* Optional: Gleiche Verteilung des Platzes */
-        /* Oder eine spezifische Breite festlegen, z.B. */
-        /* width: 50%; */
+        flex: 1; 
     }
-
 
     .toggle-button {
         display: block;
@@ -397,19 +390,22 @@ main {
 
     .container {
         flex-direction: column;
+        display: flex; 
         padding: 10px;
         width: 100%;
+        justify-content: center; 
+        align-items: center;
     }
 
-  
-
     .toggle-button {
-        display: block;
+        display: flex;
+        width: 60%;
+        justify-content: center;
     }
 
     .radius-container,
     .type-container {
-        width: 49%; /* Beide Container nehmen jeweils fast die Hälfte der Bildschirmbreite ein */
+        width: 49%; 
         box-sizing: border-box;
         margin-bottom: 20px;
 
@@ -434,10 +430,7 @@ main {
         padding: 10px;
     }
 
-
-
 }
-
 
 
 
@@ -447,37 +440,34 @@ main {
         padding: 10px;
     }
 
-
     .header-content{
         margin-bottom: 20px;
-width: 100%;
+        width: 100%;
     }
-
-
 
     aside.sidebar.hidden-sidebar {
         display: none !important;
     }
 
+    .hidden-summary {
+        display: none !important; /* Versteckt das Element */
+    }
 
-.hidden-summary {
-    display: none !important; /* Versteckt das Element */
-}
-
-.sidebar{
-width: 90%;
+    .sidebar{
+    width: 90%;
 
 
-}
+    }
     .toggle-button {
         display: block;
     }
-
 
     .container {
         flex-direction: column;
         padding: 10px;
         width: 100%;
+        display: flex;
+        align-items: center;
     }
 
     .logo {
@@ -509,7 +499,6 @@ width: 90%;
         width: 50%;
         align-items: center;
     }
-
 
     .radius-container, .type-container, .summary-item {
         padding: 10px;
