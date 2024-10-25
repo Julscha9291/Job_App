@@ -1,5 +1,6 @@
-from app import app 
+import sys
+import os
 
+sys.path.insert(0, '/home/coding/Job_App')
 
-if __name__ == "__main__":
-    app.run()
+from app import app as application
