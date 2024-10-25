@@ -1,8 +1,7 @@
 import sys
 import os
-
+from app import app 
 sys.path.insert(0, '/home/coding/Job_App')
 
-os.environ.setdefault('FLASK_ENV', 'production')
-
-from app import app as app 
+if __name__ == "__main__":
+    app.run()
