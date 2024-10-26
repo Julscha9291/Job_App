@@ -18,13 +18,12 @@ app = Flask(__name__)
 def initialize_driver():
     """Initialisiert den WebDriver mit den angegebenen Optionen."""
     options = Options()
-    options.add_argument('--headless')  # Headless-Modus aktivieren
+    options.add_argument('--headless')  
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage') 
-    options.add_argument('--user-data-dir=/tmp/temporary_profile')  # Temporäres Benutzerprofil# Verhindert Probleme mit dem shared memory
+    options.add_argument('--user-data-dir=/tmp/temporary_profile')  
     display = Display(visible=0, size=(1600, 1200))
     display.start()
-    # Setze den Pfad zum ChromeDriver
     service = Service('/usr/local/bin/chromedriver')
     return webdriver.Chrome(service=service, options=options)
 
@@ -45,7 +44,6 @@ def extract_job_information_indeed(driver, exclude_words=None):
     if exclude_words is None:
         exclude_words = []
     else:
-        # Stelle sicher, dass exclude_words eine Liste von Strings ist
         exclude_words = [word.strip() for word in exclude_words if word.strip()]
 
     job_elements = driver.find_elements(By.XPATH, '//div[@class="job_seen_beacon"]')
@@ -53,13 +51,12 @@ def extract_job_information_indeed(driver, exclude_words=None):
         print("Keine Job-Elemente gefunden auf der Seite.")
     
     job_info = []
-    seen_jobs = set()  # Set zum Speichern der bereits gesehenen Jobs (basierend auf Titel, Firma und Standort)
+    seen_jobs = set()  
     
     for job_element in job_elements:
         job_title_element = job_element.find_element(By.XPATH, './/span[@title]')
         job_title = job_title_element.get_attribute("title")
 
-        # Überprüfen, ob der Titel eines der auszuschließenden Wörter enthält
         if exclude_words and any(word.lower() in job_title.lower() for word in exclude_words):
             continue
         
@@ -70,16 +67,16 @@ def extract_job_information_indeed(driver, exclude_words=None):
         job_link_element = job_element.find_element(By.XPATH, './/a')
         job_link = job_link_element.get_attribute("href")
         
-        job_identifier = (job_title, company_name, location)  # Eindeutige Kombination aus Titel, Firma und Standort
+        job_identifier = (job_title, company_name, location) 
         
-        if job_identifier not in seen_jobs:  # Überprüfen, ob der Job bereits gesehen wurde
+        if job_identifier not in seen_jobs: 
             seen_jobs.add(job_identifier)
             job_info.append({
                 "title": job_title,
                 "company": company_name,
                 "location": location,
                 "link": job_link,
-                "date": job_element.find_element(By.XPATH, './/span[@data-testid="myJobsStateDate"]').text  # Füge das Veröffentlichungsdatum hinzu
+                "date": job_element.find_element(By.XPATH, './/span[@data-testid="myJobsStateDate"]').text  
             })
     
     return job_info
@@ -89,10 +86,9 @@ def extract_job_information_stepstone(driver, exclude_words=None, target_locatio
     if exclude_words is None:
         exclude_words = []
     else:
-        # Stelle sicher, dass exclude_words eine Liste von Strings ist
         exclude_words = [word.strip() for word in exclude_words if word.strip()]
 
-    # Debug-Ausgabe für exclude_words
+
     print(f"Ausschlusswörter: {exclude_words}")
 
     job_elements = driver.find_elements(By.XPATH, './/article[@data-at="job-item"]')
@@ -101,14 +97,13 @@ def extract_job_information_stepstone(driver, exclude_words=None, target_locatio
         print("Keine Job-Elemente gefunden auf der Seite.")
     
     job_info = []
-    seen_jobs = set()  # Set zum Speichern der bereits gesehenen Jobs (basierend auf Titel, Firma und Standort)
+    seen_jobs = set()  
 
     for job_element in job_elements:
         try:
             job_title_element = job_element.find_element(By.XPATH, './/a[@data-at="job-item-title"]')
             job_title = job_title_element.text
             
-            # Überprüfen, ob der Titel eines der auszuschließenden Wörter enthält
             if exclude_words and any(word.lower() in job_title.lower() for word in exclude_words):
                 print(f"Job mit Titel '{job_title}' enthält Ausschlusswörter und wird ignoriert.")
                 continue
@@ -117,23 +112,22 @@ def extract_job_information_stepstone(driver, exclude_words=None, target_locatio
             company_name = company_name_element.text
             location = job_element.find_element(By.XPATH, './/span[@data-at="job-item-location"]').text
 
-            # Überprüfen, ob die Stelle innerhalb des gewünschten Ortes liegt
             if target_location and target_location.lower() not in location.lower():
                 print(f"Ignoriere Job in {location} (außerhalb des Zielorts).")
-                continue  # Ignoriere Jobs außerhalb des Zielorts
+                continue  
             
             job_link = job_element.find_element(By.XPATH, './/a[@data-testid="job-item-title"]').get_attribute("href")
             
-            job_identifier = (job_title, company_name)  # Eindeutige Kombination aus Titel, Firma und Standort
+            job_identifier = (job_title, company_name)  
             
-            if job_identifier not in seen_jobs:  # Überprüfen, ob der Job bereits gesehen wurde
+            if job_identifier not in seen_jobs: 
                 seen_jobs.add(job_identifier)
                 job_info.append({
                     "title": job_title,
                     "company": company_name,
                     "location": location,
                     "link": job_link,
-                    "date": job_element.find_element(By.XPATH, './/span[@data-at="job-item-timeago"]').text,  # Füge das Veröffentlichungsdatum hinzu
+                    "date": job_element.find_element(By.XPATH, './/span[@data-at="job-item-timeago"]').text,  
                     "source": "StepStone"
                 })
         except Exception as e:
@@ -150,7 +144,7 @@ def job_search(job_title, location, radius, job_type, date_range, exclude_words)
     job_type_param = f"jt({job_type})" if job_type else ""
     date_range_param = date_range if date_range else "7"
     
-    for page in range(0, 20, 10):  # page=0, 10, 20 (Indeed paginiert in Schritten von 10)
+    for page in range(0, 20, 10):  
         url = f'https://de.indeed.com/jobs?q={job_title}&l={location}&radius={radius}&sc={job_type_param}&fromage={date_range_param}&start={page}'
         
         print(f"Zugriff auf URL: {url}")
@@ -197,19 +191,13 @@ def stepstone_search(job_title, location, radius, job_type, date_range, exclude_
     return job_info
 
 
-
-
-
 def parse_date_string(date_string):
     """Parst einen Datums-String und gibt die Anzahl der Tage seit dem Datum zurück."""
     
-    # Entferne unerwünschte Worte wie "Posted", "geschaltet" usw.
     date_string = re.sub(r'Posted|geschaltet', '', date_string).strip()
 
-    # Debug-Ausgabe, um den bereinigten Datumsstring zu sehen
     print(f"Bereinigter Datumsstring: {date_string}")
 
-    # Regex-Ausdrücke für verschiedene Zeiträume, inklusive "einen" und "Gerade"
     patterns = {
         r'vor (\d+) Tag': lambda x: int(x[0]),
         r'vor (\d+) Tagen': lambda x: int(x[0]),
@@ -219,20 +207,19 @@ def parse_date_string(date_string):
         r'vor (\d+) Monaten': lambda x: int(x[0]) * 30,
         r'vor (\d+) Jahr': lambda x: int(x[0]) * 365,
         r'vor (\d+) Jahren': lambda x: int(x[0]) * 365,
-        r'vor einen Tag': lambda x: 1,  # Abdeckung von "einen Tag"
-        r'vor einem Monat': lambda x: 30,  # Abdeckung von "einem Monat"
-        r'vor einem Jahr': lambda x: 365,  # Abdeckung von "einem Jahr"
-        r'Gerade': lambda x: 0,  # Abdeckung für "Gerade"
+        r'vor einen Tag': lambda x: 1, 
+        r'vor einem Monat': lambda x: 30,  
+        r'vor einem Jahr': lambda x: 365, 
+        r'Gerade': lambda x: 0,  
         r'vor (\d+) Stunden': lambda x: int(x[0]) / 24, 
         r'Gestern': lambda x: 1,
     }
 
     for pattern, func in patterns.items():
-        match = re.match(pattern, date_string, re.IGNORECASE)  # IGNORECASE für Groß-/Kleinschreibung
+        match = re.match(pattern, date_string, re.IGNORECASE)  
         if match:
             return func(match.groups())
 
-    # Falls keine Übereinstimmung gefunden wird
     return 1000
 
 def remove_duplicates(jobs):
@@ -254,11 +241,9 @@ def aggregate_job_search(job_title, location, radius, job_type, date_range, sort
     indeed_jobs = job_search(job_title, location, radius, job_type, date_range, exclude_words)
     stepstone_jobs = stepstone_search(job_title, location, radius, job_type, date_range, exclude_words)
              
-    # Debugging: Überprüfe die Struktur der Daten
     print("Indeed Jobs (before processing):", indeed_jobs)
     print("StepStone Jobs (before processing):", stepstone_jobs)
     
-    # Konvertiere Datum-Strings in Tage für die Indeed-Jobs
     for job in indeed_jobs:
         original_date = job.get('date', '')
         try:
@@ -266,9 +251,8 @@ def aggregate_job_search(job_title, location, radius, job_type, date_range, sort
         except Exception as e:
             print(f"Error parsing date for Indeed job: {e}")
             job['days'] = float('inf')
-        print(f"Indeed Job: {job}")  # Debug-Ausgabe
+        print(f"Indeed Job: {job}")  
         
-    # Konvertiere Datum-Strings in Tage für die StepStone-Jobs
     for job in stepstone_jobs:
         original_date = job.get('date', '')
         try:
@@ -276,31 +260,29 @@ def aggregate_job_search(job_title, location, radius, job_type, date_range, sort
         except Exception as e:
             print(f"Error parsing date for Stepstone job: {e}")
             job['days'] = float('inf')
-        print(f"Stepstone Job: {job}")  # Debug-Ausgabe    
+        print(f"Stepstone Job: {job}")    
 
-    # Sortiere die Jobs nach "days" aufsteigend, falls "sort_by" auf "date" gesetzt ist
     if sort_by == "date":
         print("Sorting Indeed jobs by date...")
-        indeed_jobs.sort(key=lambda x: x.get('days', float('inf')))  # Aufsteigend sortieren (kein reverse)
+        indeed_jobs.sort(key=lambda x: x.get('days', float('inf')))  
         for job in indeed_jobs:
-            print(f"Indeed Job - Title: {job['title']}, Days: {job['days']}")  # Ausgabe nach dem Sortieren
+            print(f"Indeed Job - Title: {job['title']}, Days: {job['days']}")  
 
         print("Sorting Stepstone jobs by date...")
         stepstone_jobs.sort(key=lambda x: x.get('days', float('inf')))
         for job in stepstone_jobs:
-            print(f"Stepstone Job - Title: {job['title']}, Days: {job['days']}")  # Ausgabe nach dem Sortieren
+            print(f"Stepstone Job - Title: {job['title']}, Days: {job['days']}") 
 
-    # Zusammenführen der Jobs in einer einzigen Liste
+
     all_jobs_list = remove_duplicates(indeed_jobs) + remove_duplicates(stepstone_jobs)
 
-    # Berechnung der Anzahl der Jobs, die heute oder in den letzten 7 Tagen gepostet wurden
     total_jobs = len(all_jobs_list)
     today_jobs = len([job for job in all_jobs_list if job.get('days', 0) <= 1])
     last_7_days_jobs = len([job for job in all_jobs_list if job.get('days', 0) <= 8])
 
     print("All Jobs (after processing):", all_jobs_list)
 
-    # Rückgabe der aggregierten Daten
+
     all_jobs = {
         "total_jobs": total_jobs,
         "today_jobs": today_jobs,
@@ -322,15 +304,12 @@ def search():
     radius = request.form['radius']
     job_type = request.form['job_type']
     date_range = request.form['date_range']
-    sort_by = request.form['sort_by']  # Erhalte den Sortierparameter
+    sort_by = request.form['sort_by']  
 
-    # Neue Zeile zum Abrufen des exclude_words Parameters
     exclude_words = request.form.get('exclude_words', '').split(',')
 
-    # Funktion zur Websuche nach Jobs
     job_info = aggregate_job_search(job_title, location, radius, job_type, date_range, sort_by, exclude_words)
     
-    # Ergebnisse als JSON zurückgeben
     return jsonify(job_info)
 
 

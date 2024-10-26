@@ -1,25 +1,23 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Event-Listener für das Suchformular
-    document.getElementById('search-form').addEventListener('submit', function(event) {
-        event.preventDefault(); // Verhindert das Neuladen der Seite
-        document.getElementById('loader').style.display = 'block'; // Zeigt den Loader an
 
-        const formData = new FormData(this); // Holt die Daten aus dem Formular
-        fetch('/search', { //Sendet Daten an Server
+    document.getElementById('search-form').addEventListener('submit', function(event) {
+        event.preventDefault(); 
+        document.getElementById('loader').style.display = 'block';
+
+        const formData = new FormData(this); 
+        fetch('/search', { 
             method: 'POST',
             body: formData
         })
-        .then(response => response.json()) //Umwandeln in JSON
+        .then(response => response.json()) 
         .then(data => {
             document.getElementById('loader').style.display = 'none';
 
             if (data.total_jobs > 0) {
-                // Entferne die hidden-summary Klasse, wenn es Ergebnisse gibt
                 document.getElementById('summary').classList.remove('hidden-summary');
                 document.getElementById('results').classList.remove('hidden');
             }    
 
-            // Aktualisiere die Summary-Daten
             const summaryContainer = document.getElementById('summary');
             summaryContainer.innerHTML = `
                 <div class="summary-item">
@@ -36,7 +34,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             `;
 
-            // Ergebnisse-Container leeren und neue Ergebnisse einfügen
             const resultsContainer = document.getElementById('results');
             resultsContainer.innerHTML = '';
 
@@ -64,16 +61,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Event-Listener für das Öffnen des Links in einem neuen Tab
     document.getElementById('results').addEventListener('click', function(event) {
         if (event.target.classList.contains('apply-link')) {
             event.preventDefault();
             const url = event.target.getAttribute('data-url');
-            window.open(url, '_blank'); // Öffne den Link in einem neuen Tab
+            window.open(url, '_blank'); 
         }
     });
 
-    // Initialisiere den Radius-Schieberegler
     const radiusInput = document.getElementById('radius');
     const radiusValue = document.getElementById('radius-value');
 
@@ -84,16 +79,14 @@ document.addEventListener('DOMContentLoaded', function() {
     updateRadiusValue();
     radiusInput.addEventListener('input', updateRadiusValue);
 
-    // Event-Listener für den "Mehr Filter"-Button und Sidebar
     const toggleFiltersButton = document.getElementById('toggle-filters');
     const sidebar = document.querySelector('.sidebar');
 
     toggleFiltersButton.addEventListener('click', function(event) {
-        event.preventDefault(); // Verhindere Standardverhalten des Buttons
+        event.preventDefault(); 
         sidebar.classList.toggle('hidden-sidebar');
     });
 
-    // Schließen der Sidebar beim Abschicken des Suchformulars
     const searchForm = document.getElementById('search-form');
     searchForm.addEventListener('submit', function() {
         sidebar.classList.add('hidden-sidebar');
