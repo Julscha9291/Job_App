@@ -25,7 +25,7 @@ def initialize_driver():
     display = Display(visible=0, size=(1600, 1200))
     display.start()
     # Setze den Pfad zum ChromeDriver
-    service = Service('/snap/chromium/current/usr/lib/chromium-browser/chromedriver')
+    service = Service('/usr/local/bin/chromedriver')
     return webdriver.Chrome(service=service, options=options)
 
 def close_popup(driver):
@@ -137,7 +137,7 @@ def extract_job_information_stepstone(driver, exclude_words=None, target_locatio
                     "source": "StepStone"
                 })
         except Exception as e:
-            print(f"Fehler beim Extrahieren einesn Jobs von StepStone: {e}")
+            print(f"Fehler beim Extrahieren eines Jobs von StepStone: {e}")
     
     return job_info
 
