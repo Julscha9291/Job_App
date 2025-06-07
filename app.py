@@ -180,6 +180,7 @@ def stepstone_search(job_title, location, radius, job_type, date_range, exclude_
     for page in range(1, 2):
         url = f"{base_url}{job_type_param}/{job_title}/in-{location}?radius={radius}&{date_range_param}&rsearch=1&page={page}"
         print(f"Zugriff auf URL: {url}")
+        time.sleep(5) 
         driver.get(url)
         
         time.sleep(5)
