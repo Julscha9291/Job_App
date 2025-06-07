@@ -153,7 +153,7 @@ def job_search(job_title, location, radius, job_type, date_range, exclude_words)
         close_popup(driver)
         job_info.extend(extract_job_information_indeed(driver, exclude_words))
         
-        time.sleep(2)
+        time.sleep(5)
 
     driver.quit()
     return job_info
@@ -186,7 +186,7 @@ def stepstone_search(job_title, location, radius, job_type, date_range, exclude_
         close_popup(driver)
         job_info.extend(extract_job_information_stepstone(driver, exclude_words, location))
         
-        time.sleep(2)
+        time.sleep(5)
 
     driver.quit()
     return job_info
