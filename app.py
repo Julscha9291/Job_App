@@ -32,7 +32,7 @@ def initialize_driver():
 def close_popup(driver):
     """Versucht, ein Popup-Fenster zu schließen, falls vorhanden."""
     try:
-        popup = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="mosaic-desktopserpjapopup"]/div[1]/button')))
+        popup = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="onetrust-accept-btn-handler')))
         popup.click()
         print("Popup geschlossen.")
     except:
@@ -48,9 +48,8 @@ def extract_job_information_indeed(driver, exclude_words=None):
     else:
         exclude_words = [word.strip() for word in exclude_words if word.strip()]
 
-    job_elements = WebDriverWait(driver, 15).until(
-        EC.presence_of_all_elements_located((By.XPATH, '//div[contains(@class, "job_seen_beacon")]'))
-    )
+    job_elements = driver.find_elements(By.XPATH, '//div[contains(@class, "job_seen_beacon")]')
+
     if not job_elements:
         print("Keine Job-Elemente gefunden auf der Seite.")
     
