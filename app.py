@@ -15,6 +15,7 @@ from pyvirtualdisplay import Display
 app = Flask(__name__)
 
 
+
 def initialize_driver():
     """Initialisiert den WebDriver mit den angegebenen Optionen."""
     options = Options()
@@ -47,7 +48,8 @@ def extract_job_information_indeed(driver, exclude_words=None):
     else:
         exclude_words = [word.strip() for word in exclude_words if word.strip()]
 
-    job_elements = driver.find_elements(By.XPATH, '//div[@class="job_seen_beacon"]')
+    job_elements = driver.find_elements(By.XPATH, '//div[contains(@class, "job_seen_beacon")]')
+    time.sleep(5)
     if not job_elements:
         print("Keine Job-Elemente gefunden auf der Seite.")
     
