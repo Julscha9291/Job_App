@@ -48,8 +48,9 @@ def extract_job_information_indeed(driver, exclude_words=None):
     else:
         exclude_words = [word.strip() for word in exclude_words if word.strip()]
 
-    job_elements = driver.find_elements(By.XPATH, '//div[contains(@class, "job_seen_beacon")]')
-    time.sleep(5)
+    job_elements = WebDriverWait(driver, 15).until(
+        EC.presence_of_all_elements_located((By.XPATH, '//div[contains(@class, "job_seen_beacon")]'))
+    )
     if not job_elements:
         print("Keine Job-Elemente gefunden auf der Seite.")
     
