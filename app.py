@@ -21,6 +21,7 @@ def initialize_driver():
     options = Options()
     options.add_argument('--headless')  
     options.add_argument('--no-sandbox')
+    options.binary_location = "/snap/bin/chromium" 
     options.add_argument('--disable-dev-shm-usage') 
     options.add_argument('--user-data-dir=/tmp/temporary_profile')  
     #display = Display(visible=0, size=(1600, 1200))
