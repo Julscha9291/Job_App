@@ -24,16 +24,9 @@ def initialize_driver():
     options = Options()
     options.add_argument('--headless')  
     options.add_argument('--no-sandbox')
-    options.binary_location = "/snap/bin/chromium" 
     options.add_argument('--disable-dev-shm-usage') 
+    options.binary_location = "/snap/bin/chromium" 
 
-    # temporäres, eindeutiges Profil für diese Session
-    temp_profile = tempfile.mkdtemp(prefix=f"chrome_{uuid.uuid4()}_")
-    options.add_argument(f'--user-data-dir={temp_profile}')
-
-    #display = Display(visible=0, size=(1600, 1200))
-    #display.start()
-    #service = Service(ChromeDriverManager().install())
     service = Service('/usr/local/bin/chromedriver')
     return webdriver.Chrome(service=service, options=options)
 
