@@ -12,6 +12,8 @@ from datetime import datetime, timedelta
 import requests
 from pyvirtualdisplay import Display
 import tempfile
+import uuid
+
 
 app = Flask(__name__)
 
@@ -26,7 +28,7 @@ def initialize_driver():
     options.add_argument('--disable-dev-shm-usage') 
 
     # temporäres, eindeutiges Profil für diese Session
-    temp_profile = tempfile.mkdtemp()
+    temp_profile = tempfile.mkdtemp(prefix=f"chrome_{uuid.uuid4()}_")
     options.add_argument(f'--user-data-dir={temp_profile}')
 
     #display = Display(visible=0, size=(1600, 1200))
