@@ -27,7 +27,7 @@ def initialize_driver():
     options.add_argument('--disable-dev-shm-usage') 
     options.binary_location = "/snap/bin/chromium" 
 
-    service = Service('/usr/local/bin/chromedriver')
+    service = Service(ChromeDriverManager().install())
     return webdriver.Chrome(service=service, options=options)
 
 def close_popup(driver):
