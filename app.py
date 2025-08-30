@@ -11,6 +11,7 @@ import re
 from datetime import datetime, timedelta
 import requests
 from pyvirtualdisplay import Display
+import tempfile
 
 app = Flask(__name__)
 
@@ -23,7 +24,11 @@ def initialize_driver():
     options.add_argument('--no-sandbox')
     options.binary_location = "/snap/bin/chromium" 
     options.add_argument('--disable-dev-shm-usage') 
-    options.add_argument('--user-data-dir=/tmp/temporary_profile')  
+
+    # temporäres, eindeutiges Profil für diese Session
+    temp_profile = tempfile.mkdtemp()
+    options.add_argument(f'--user-data-dir={temp_profile}')
+
     #display = Display(visible=0, size=(1600, 1200))
     #display.start()
     #service = Service(ChromeDriverManager().install())
