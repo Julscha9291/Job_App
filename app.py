@@ -23,16 +23,16 @@ def initialize_driver():
     os.environ["WDM_LOCAL"] = "/tmp/.wdm"
     
     options = Options()
-    options.add_argument("--headless=new")  # Headless-Modus
+    options.add_argument("--headless")  # Headless-Modus
     options.add_argument("--no-sandbox")    # notwendig für Linux-Server
     options.add_argument("--disable-dev-shm-usage")  # verhindert Speicherprobleme
     options.add_argument("--remote-debugging-port=9222")  # um DevToolsActivePort-Fehler zu vermeiden
     options.add_argument("--disable-gpu")
     options.add_argument("--disable-extensions")
     
-    options.binary_location = "/usr/bin/chromium"
+    options.binary_location = "/usr/bin/chromium-browser"
 
-    service = Service("/usr/bin/chromedriver") 
+    service = Service(ChromeDriverManager().install())
     return webdriver.Chrome(service=service, options=options)
 
 def close_popup(driver):
@@ -147,6 +147,9 @@ def extract_job_information_stepstone(driver, exclude_words=None, target_locatio
 
 def job_search(job_title, location, radius, job_type, date_range, exclude_words):
     """Durchsucht Indeed nach den ersten drei Seiten."""
+    display = Display(visible=0, size=(1920,1080))
+    display.start()
+    
     driver = initialize_driver()
     job_info = []
 
