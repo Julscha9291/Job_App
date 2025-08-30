@@ -27,6 +27,7 @@ def initialize_driver():
     options.add_argument("--disable-dev-shm-usage")  # /dev/shm Problem umgehen
     options.add_argument("--disable-gpu")
     options.add_argument("--window-size=1920,1080")
+    options.binary_location = "/snap/bin/chromium" 
 
     service = Service(ChromeDriverManager().install())
     return webdriver.Chrome(service=service, options=options)
