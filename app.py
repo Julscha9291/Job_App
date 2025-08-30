@@ -30,8 +30,7 @@ def initialize_driver():
     options.add_argument("--disable-gpu")
     options.add_argument("--disable-extensions")
     
-    
-    options.binary_location = "/usr/bin/chromium-browser"
+    options.binary_location = "/usr/bin/chromium"
 
     service = Service("/usr/bin/chromedriver") 
     return webdriver.Chrome(service=service, options=options)
