@@ -22,10 +22,11 @@ app = Flask(__name__)
 def initialize_driver():
     """Initialisiert den WebDriver mit den angegebenen Optionen."""
     options = Options()
-    options.add_argument('--headless')  
-    options.add_argument('--no-sandbox')
-    options.add_argument('--disable-dev-shm-usage') 
-    options.binary_location = "/snap/bin/chromium" 
+    options.add_argument("--headless=new")   # Headless-Modus
+    options.add_argument("--no-sandbox")     # Sandbox deaktivieren (Server)
+    options.add_argument("--disable-dev-shm-usage")  # /dev/shm Problem umgehen
+    options.add_argument("--disable-gpu")
+    options.add_argument("--window-size=1920,1080")
 
     service = Service(ChromeDriverManager().install())
     return webdriver.Chrome(service=service, options=options)
