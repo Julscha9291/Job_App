@@ -25,8 +25,8 @@ def initialize_driver():
     options.add_argument('--user-data-dir=/tmp/temporary_profile')  
     #display = Display(visible=0, size=(1600, 1200))
     #display.start()
-    service = Service(ChromeDriverManager().install())
-    #service = Service('/usr/local/bin/chromedriver')
+    #service = Service(ChromeDriverManager().install())
+    service = Service('/usr/local/bin/chromedriver')
     return webdriver.Chrome(service=service, options=options)
 
 def close_popup(driver):
