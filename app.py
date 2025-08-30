@@ -23,11 +23,14 @@ def initialize_driver():
     os.environ["WDM_LOCAL"] = "/tmp/.wdm"
     
     options = Options()
-    options.add_argument("--headless=new")   # Headless-Modus
-    options.add_argument("--no-sandbox")     # Sandbox deaktivieren (Server)
-    options.add_argument("--disable-dev-shm-usage")  # /dev/shm Problem umgehen
+    options.add_argument("--headless=new")  # Headless-Modus
+    options.add_argument("--no-sandbox")    # notwendig für Linux-Server
+    options.add_argument("--disable-dev-shm-usage")  # verhindert Speicherprobleme
+    options.add_argument("--remote-debugging-port=9222")  # um DevToolsActivePort-Fehler zu vermeiden
     options.add_argument("--disable-gpu")
-    options.add_argument("--window-size=1920,1080")
+    options.add_argument("--disable-extensions")
+    
+    
     options.binary_location = "/usr/bin/chromium-browser"
 
     service = Service(ChromeDriverManager().install())
