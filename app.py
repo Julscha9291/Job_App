@@ -33,7 +33,7 @@ def initialize_driver():
     
     options.binary_location = "/usr/bin/chromium-browser"
 
-    service = Service(ChromeDriverManager().install())
+    service = Service("/usr/bin/chromedriver") 
     return webdriver.Chrome(service=service, options=options)
 
 def close_popup(driver):
