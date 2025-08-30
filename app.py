@@ -19,21 +19,34 @@ app = Flask(__name__)
 
 
 def initialize_driver():
-    """Initialisiert den WebDriver mit den angegebenen Optionen."""
-    os.environ["WDM_LOCAL"] = "/tmp/.wdm"
-    
+    """Initialisiert den WebDriver mit den Optionen für Headless-Chrome auf Linux-Servern."""
+    from selenium.webdriver.chrome.service import Service
+    from selenium.webdriver.chrome.options import Options
+    from webdriver_manager.chrome import ChromeDriverManager
+    import os
+
+    os.environ["WDM_LOCAL"] = "/tmp/.wdm"  # Cache für webdriver-manager
+
     options = Options()
-    options.add_argument("--headless")  # Headless-Modus
-    options.add_argument("--no-sandbox")    # notwendig für Linux-Server
+    options.add_argument("--headless=new")       # moderner Headless-Modus
+    options.add_argument("--no-sandbox")         # nötig für Linux-Server
     options.add_argument("--disable-dev-shm-usage")  # verhindert Speicherprobleme
-    options.add_argument("--remote-debugging-port=9222")  # um DevToolsActivePort-Fehler zu vermeiden
     options.add_argument("--disable-gpu")
     options.add_argument("--disable-extensions")
-    
+    options.add_argument("--window-size=1920,1080")
+    options.add_argument("--remote-debugging-port=9222")
+    options.add_argument("--user-data-dir=/tmp/chrome-user-data")  # verhindert Fehler beim Start
+
+    # Chromium-Binary
     options.binary_location = "/usr/bin/chromium-browser"
 
+    # Service mit WebDriverManager
     service = Service(ChromeDriverManager().install())
-    return webdriver.Chrome(service=service, options=options)
+
+    # WebDriver starten
+    driver = webdriver.Chrome(service=service, options=options)
+    return driver
+
 
 def close_popup(driver):
     """Versucht, ein Popup-Fenster zu schließen, falls vorhanden."""
